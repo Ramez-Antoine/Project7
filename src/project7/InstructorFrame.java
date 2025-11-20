@@ -12,11 +12,13 @@ import javax.swing.JFrame;
  */
 public class InstructorFrame extends javax.swing.JFrame {
     private Instructor instructor;
+    private Databasef db;
     /**
      * Creates new form InstructorFrame
      */
-    public InstructorFrame(Instructor instructor) {
+    public InstructorFrame(Instructor instructor,Databasef db) {
         this.instructor = instructor;
+        this.db=db;
         initComponents();
     }
 
@@ -118,22 +120,20 @@ public class InstructorFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       CreateCourseForm panel = new CreateCourseForm(instructor);
-  JFrame frame = new JFrame("Create Course");
-  frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-  frame.getContentPane().add(panel);
-  frame.pack();
-  frame.setLocationRelativeTo(null);
-  frame.setVisible(true);
+        JFrame frame = new JFrame("Create Course");
+    frame.setContentPane(new CreateCourseForm(instructor));
+    frame.pack();
+    frame.setLocationRelativeTo(null);
+    frame.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       // ViewStudentsForm studentsForm = new ViewStudentsForm(instructor);
-   // studentsForm.setVisible(true);
+       ViewStudentsForm studentsForm = new ViewStudentsForm(instructor,db);
+   studentsForm.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        EditCourseFrame editForm = new EditCourseFrame(instructor);
+        EditCourseFrame editForm = new EditCourseFrame(instructor,db);
     editForm.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
