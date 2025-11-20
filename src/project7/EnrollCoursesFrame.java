@@ -4,6 +4,10 @@
  */
 package project7;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author cs
@@ -18,7 +22,39 @@ public class EnrollCoursesFrame extends javax.swing.JPanel {
         loadAvailableCourses() ;
     }
 
-    
+    private void loadAvailableCourses() {
+
+    // Load all courses from database
+    ArrayList<Course> allCourses = Databasef.readCourses();
+    ArrayList<User> allUsers = Databasef.readUsers();
+
+    // Prepare table model
+    javax.swing.table.DefaultTableModel model =
+            (javax.swing.table.DefaultTableModel) jTable1.getModel();
+
+    model.setRowCount(0);  // clear old rows
+
+    // Fill table with data
+    for (Course c : allCourses) {
+
+        // Get instructor name from users list
+        String instructorName = "";
+        for (User u : allUsers) {
+            if (u.getId().equals(c.getInstructorId())) {
+                instructorName = u.getName();
+                break;
+            }
+        }
+
+        model.addRow(new Object[]{
+                c.getCourseId(),
+                c.getTitle(),
+                c.getDescription(),
+                instructorName
+        });
+    }
+}
+
     
     
     
@@ -67,6 +103,11 @@ public class EnrollCoursesFrame extends javax.swing.JPanel {
         });
 
         jButton3.setText("Back");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -100,12 +141,82 @@ public class EnrollCoursesFrame extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow();
+
+if (selectedRow == -1) {
+    JOptionPane.showMessageDialog(this, "Please select a course.");
+    return;
+}
+
+String courseId = jTable1.getValueAt(selectedRow, 0).toString();
+
+// TEMP: replace when login is connected
+String loggedStudentId = "S1";
+
+// Load database
+ArrayList<User> allUsers = Databasef.readUsers();
+ArrayList<Course> allCourses = Databasef.readCourses();
+
+// Find student
+Student student = null;
+for (User u : allUsers) {
+    if (u instanceof Student && u.getId().equals(loggedStudentId)) {
+        student = (Student) u;
+        break;
+    }
+}
+
+if (student == null) {
+    JOptionPane.showMessageDialog(this, "Student not found!");
+    return;
+}
+
+// Check duplicate enrollment
+if (student.getEnrolledCourses().contains(courseId)) {
+    JOptionPane.showMessageDialog(this, "You are already enrolled in this course.");
+    return;
+}
+
+// Add course to student
+student.getEnrolledCourses().add(courseId);
+
+// Add student to course
+for (Course c : allCourses) {
+    if (c.getCourseId().equals(courseId)) {
+        c.addStudent(student);
+        break;
+    }
+}
+
+// Save
+Databasef.writeUsers(allUsers);
+Databasef.writeCourses(allCourses);
+
+JOptionPane.showMessageDialog(this, "Enrolled Successfully!");
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow();
+
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Please select a course first.");
+        return;
+    }
+
+    String courseId = jTable1.getValueAt(selectedRow, 0).toString();
+
+    // Open lessons screen (we will create it if it doesn't exist)
+    LessonViewerFrame lv = new LessonViewerFrame(courseId);
+    lv.setVisible(true);
+
+    SwingUtilities.getWindowAncestor(this).dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+         StudentDashBoard dashboard = new StudentDashBoard();
+        dashboard.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

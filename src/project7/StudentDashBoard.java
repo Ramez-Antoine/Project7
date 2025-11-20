@@ -103,7 +103,7 @@ public class StudentDashBoard extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        LessonComletedFrame lessons = new LessonComletedFrame();
+        LessonViewerFrame lessons = new LessonViewerFrame();
         lessons.setVisible(true);
         SwingUtilities.getWindowAncestor(this).dispose();
 

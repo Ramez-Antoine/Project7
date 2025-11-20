@@ -51,6 +51,11 @@ public class ViewCoursesFrame extends javax.swing.JPanel {
         ));
         jTable1.setShowHorizontalLines(true);
         jTable1.setShowVerticalLines(true);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -128,6 +133,10 @@ public class ViewCoursesFrame extends javax.swing.JPanel {
 
         SwingUtilities.getWindowAncestor(this).dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1MouseClicked
 
 
     private void loadTablesData() {
