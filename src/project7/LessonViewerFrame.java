@@ -4,6 +4,11 @@
  */
 package project7;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author DELL
@@ -18,9 +23,71 @@ public class LessonViewerFrame extends javax.swing.JPanel {
     }
 
     
+    private String courseId;   // نحتفظ بالـ courseId
+
+public LessonViewerFrame(String courseId) {
+    this.courseId = courseId;
+    initComponents();
+    loadLessons();   // نادينا الفانكشن اللي هتملأ الجدول
+}
+
     
-    
-    
+    private void loadLessons() {
+
+    // Load all courses
+    ArrayList<Course> allCourses = Databasef.readCourses();
+
+    // Find selected course
+    Course selectedCourse = null;
+
+    for (Course c : allCourses) {
+        if (c.getCourseId().equals(courseId)) {
+            selectedCourse = c;
+            break;
+        }
+    }
+
+    if (selectedCourse == null) {
+        JOptionPane.showMessageDialog(this, "Course not found!");
+        return;
+    }
+
+    // Load student for progress check
+    ArrayList<User> users = Databasef.readUsers();
+    Student currentStudent = null;
+
+    for (User u : users) {
+        if (u instanceof Student) {
+            currentStudent = (Student) u;
+            break;
+        }
+    }
+
+    // Fill table model
+    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    model.setRowCount(0);
+
+    for (Lesson lesson : selectedCourse.getLessons()) {
+
+        boolean completed = false;
+
+        if (currentStudent != null &&
+            currentStudent.getProgress().containsKey(courseId)) {
+
+            completed =
+                currentStudent.getProgress()
+                    .get(courseId)
+                    .contains(lesson.getLessonId());
+        }
+
+        model.addRow(new Object[]{
+            lesson.getLessonId(),
+            lesson.getTitle(),
+            completed ? "Yes" : "No"
+        });
+    }
+}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,6 +117,11 @@ public class LessonViewerFrame extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -74,7 +146,14 @@ public class LessonViewerFrame extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    StudentDashBoard dashboard = new StudentDashBoard();
+    dashboard.setVisible(true);
+    SwingUtilities.getWindowAncestor(this).dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
+
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;

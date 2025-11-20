@@ -70,7 +70,7 @@ public class Login extends javax.swing.JPanel {
             Student s = (Student) user;
             StudentService service = new StudentService();
 
-            new StudentDashboardFrame(s, service).setVisible(true);
+            new StudentDashBoard(s, service).setVisible(true);
         }
         else
         {
