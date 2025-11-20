@@ -21,10 +21,8 @@ public class Instructor extends User {
          Databasef db = new Databasef();
         Course c = new Course(courseId, title, description, instructorId);
 
-        // 1) Add to memory
         createdCourses.add(c);
 
-        // 2) Save to database
         db.addCourse(c);
     }
 
