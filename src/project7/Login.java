@@ -12,11 +12,13 @@ import javax.swing.SwingUtilities;
  */
 public class Login extends javax.swing.JPanel {
     private AuthService auth;
+    private Databasef db;
     /**
      * Creates new form Login
      */
     public Login(Databasef db) {
         auth = new AuthService(db);
+        this.db=db;
         initComponents();
         setVisible(true);
     }
@@ -72,7 +74,7 @@ public class Login extends javax.swing.JPanel {
         }
         else
         {
-            InstructorFrame frame = new InstructorFrame((Instructor) user);
+            InstructorFrame frame = new InstructorFrame((Instructor) user,db);
             frame.setLocationRelativeTo(null); 
             frame.setVisible(true);
         }
