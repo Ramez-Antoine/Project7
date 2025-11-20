@@ -13,9 +13,16 @@ import javax.swing.SwingUtilities;
  */
 public class StudentDashBoard extends javax.swing.JPanel {
 
-    /**
-     * Creates new form StudentDashBoard
-     */
+    private Student currentStudent;
+    private StudentService service;
+
+    public StudentDashBoard(Student s, StudentService service) {
+        this.currentStudent = s;
+        this.service = service;
+
+        initComponents();
+    }
+
     public StudentDashBoard() {
         initComponents();
     }
