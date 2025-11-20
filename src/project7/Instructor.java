@@ -5,11 +5,10 @@ import java.util.List;
 
 public class Instructor extends User {
     private ArrayList<Course> createdCourses;
-    private Databasef db = new Databasef();
 
     public Instructor(String id, String name, String email, String passwordHash) {
         super(id, name, email, passwordHash, "instructor");
-        this.createdCourses = db.loadCoursesByInstructor(id); 
+         
     }
 
     public ArrayList<Course> getCreatedCourses() {
