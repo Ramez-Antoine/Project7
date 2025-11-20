@@ -9,7 +9,7 @@ package project7;
  * @author 20114
  */
 public class MainMenuFrame extends javax.swing.JFrame {
-
+        private Databasef db = new Databasef();
     /**
      * Creates new form MainMenuFrame
      */
@@ -79,11 +79,10 @@ public class MainMenuFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        
     javax.swing.JFrame f = new javax.swing.JFrame();
-    f.setContentPane(new Login());
+    f.setContentPane(new Login(db)); // مرر نفس الـ db
     f.pack();
     f.setLocationRelativeTo(null);
     f.setVisible(true);
-
     dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

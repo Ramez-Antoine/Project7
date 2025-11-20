@@ -13,10 +13,11 @@ import java.util.ArrayList;
 
 public class AuthService {
     private ArrayList<User> users;
-    Databasef db = new Databasef(); 
+    private Databasef db; 
     
-    public AuthService()
+    public AuthService(Databasef db)
     {
+        this.db=db;
         users = db.readUsers();
     }
     

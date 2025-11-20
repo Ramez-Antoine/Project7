@@ -15,8 +15,8 @@ public class Login extends javax.swing.JPanel {
     /**
      * Creates new form Login
      */
-    public Login() {
-        auth = new AuthService();
+    public Login(Databasef db) {
+        auth = new AuthService(db);
         initComponents();
         setVisible(true);
     }
