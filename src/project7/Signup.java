@@ -12,12 +12,14 @@ import javax.swing.SwingUtilities;
  */
 public class Signup extends javax.swing.JPanel {
     private AuthService auth;
+    private Databasef db;
 
     /**
      * Creates new form Signup
      */
-    public Signup() {
-        auth = new AuthService();
+    public Signup(Databasef db) {
+        this.db=db;
+        auth = new AuthService(db);
         initComponents();
         setVisible(true);
     }
@@ -66,7 +68,7 @@ public class Signup extends javax.swing.JPanel {
         }
         
         javax.swing.JFrame f = new javax.swing.JFrame();
-        f.setContentPane(new Login()); // Load Login panel
+        f.setContentPane(new Login(db)); // Load Login panel
         f.pack();
         f.setLocationRelativeTo(null);
         f.setVisible(true);
