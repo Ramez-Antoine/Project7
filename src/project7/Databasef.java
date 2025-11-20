@@ -114,7 +114,12 @@ public class Databasef {
             }
 
             if (u instanceof Instructor i) {
-                o.put("createdCourses", i.getCreatedCourses());
+                JSONArray created = new JSONArray();
+                for (Course c : i.getCreatedCourses()) {
+                    created.put(c.getCourseId());
+                }
+                o.put("createdCourses", created);
+
             }
 
             arr.put(o);

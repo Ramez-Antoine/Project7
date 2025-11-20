@@ -72,7 +72,9 @@ public class Login extends javax.swing.JPanel {
         }
         else
         {
-            new InstructorFrame((Instructor) user);
+            InstructorFrame frame = new InstructorFrame((Instructor) user);
+            frame.setLocationRelativeTo(null); 
+            frame.setVisible(true);
         }
         
         SwingUtilities.getWindowAncestor(this).dispose();
