@@ -4,6 +4,8 @@
  */
 package project7;
 
+import javax.swing.SwingUtilities;
+
 
 /**
  *
@@ -43,8 +45,18 @@ public class StudentDashBoard extends javax.swing.JPanel {
         });
 
         jButton2.setText("Enroll courses");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Lessons completed");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -79,9 +91,23 @@ public class StudentDashBoard extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
          ViewCoursesFrame view = new ViewCoursesFrame();
-    view.setVisible(true);
-    SwingUtilities.getWindowAncestor(this).dispose();
+         view.setVisible(true);
+         SwingUtilities.getWindowAncestor(this).dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        EnrollCoursesFrame enroll = new EnrollCoursesFrame();
+        enroll.setVisible(true);
+        SwingUtilities.getWindowAncestor(this).dispose();
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        LessonComletedFrame lessons = new LessonComletedFrame();
+        lessons.setVisible(true);
+        SwingUtilities.getWindowAncestor(this).dispose();
+
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

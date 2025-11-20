@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package project7;
+import java.util.ArrayList;
+
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -15,6 +18,7 @@ public class ViewCoursesFrame extends javax.swing.JPanel {
      */
     public ViewCoursesFrame() {
         initComponents();
+        loadTablesData();
     }
 
     /**
@@ -71,12 +75,17 @@ public class ViewCoursesFrame extends javax.swing.JPanel {
         jScrollPane2.setViewportView(jTable2);
 
         jButton1.setText("Back");
-
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -90,13 +99,11 @@ public class ViewCoursesFrame extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(310, 310, 310)
                                 .addComponent(jLabel2)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(layout.createSequentialGroup()
-
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,10 +123,69 @@ public class ViewCoursesFrame extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        StudentDashBoard dashboard = new StudentDashBoard();
+        dashboard.setVisible(true);
+
+        SwingUtilities.getWindowAncestor(this).dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
+    private void loadTablesData() {
+
+    // Load all courses from JSON
+    ArrayList<Course> allCourses = Databasef.readCourses();
+    ArrayList<User> allUsers = Databasef.readUsers();
+
+    // ----------------- Fill Available Courses Table (jTable1) -----------------
+    javax.swing.table.DefaultTableModel model1 =
+            (javax.swing.table.DefaultTableModel) jTable1.getModel();
+
+    model1.setRowCount(0);  // Clear table
+
+    for (Course c : allCourses) {
+
+        // Get instructor name by instructorId
+        String instructorName = "";
+        for (User u : allUsers) {
+            if (u.getId().equals(c.getInstructorId())) {
+                instructorName = u.getName();
+                break;
+            }
+        }
+
+        Object[] row = {
+                c.getCourseId(),
+                c.getTitle(),
+                c.getDescription(),
+                instructorName
+        };
+
+        model1.addRow(row);
+    }
+
+
+    // ----------------- Fill Enrolled Courses Table (jTable2) -----------------
+    javax.swing.table.DefaultTableModel model2 =
+            (javax.swing.table.DefaultTableModel) jTable2.getModel();
+
+    model2.setRowCount(0);  // Clear table
+
+    // TODO: Replace with actual logged in student
+    String loggedStudentId = "S1"; // temporary until login logic is done
+
+    for (Course c : allCourses) {
+        for (Student s : c.getStudents()) {
+            if (s.getId().equals(loggedStudentId)) {
+                Object[] row = { c.getCourseId(), c.getTitle() };
+                model2.addRow(row);
+            }
+        }
+    }
+}
+
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -130,3 +196,6 @@ public class ViewCoursesFrame extends javax.swing.JPanel {
     private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }
+
+
+
