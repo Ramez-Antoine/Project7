@@ -22,22 +22,14 @@ public class Databasef {
     }
 
     private static String readFile(String filename) {
-       try {
-        if (!Files.exists(Paths.get(filename))) {
+        try {
+            if (!Files.exists(Paths.get(filename))) {
+                return "[]";
+            }
+            return new String(Files.readAllBytes(Paths.get(filename)));
+        } catch (Exception e) {
             return "[]";
         }
-
-        String content = new String(Files.readAllBytes(Paths.get(filename))).trim();
-
-        // لو الملف موجود لكنه فاضي
-        if (content.isEmpty()) {
-            return "[]";
-        }
-
-        return content;
-    } catch (Exception e) {
-        return "[]";
-    }
     }
 
     private static void writeFile(String filename, String content) {
@@ -122,11 +114,12 @@ public class Databasef {
             }
 
             if (u instanceof Instructor i) {
-JSONArray created = new JSONArray();
-for (Course c : i.getCreatedCourses()) {
-    created.put(c.getCourseId());
-}
-o.put("createdCourses", created);
+                JSONArray created = new JSONArray();
+                for (Course c : i.getCreatedCourses()) {
+                    created.put(c.getCourseId());
+                }
+                o.put("createdCourses", created);
+
             }
 
             arr.put(o);

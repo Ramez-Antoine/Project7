@@ -5,10 +5,12 @@ import java.util.List;
 
 public class Instructor extends User {
     private ArrayList<Course> createdCourses;
+    //private Databasef db = new Databasef();
 
     public Instructor(String id, String name, String email, String passwordHash) {
         super(id, name, email, passwordHash, "instructor");
-         
+        //this.createdCourses = db.loadCoursesByInstructor(id); 
+        this.createdCourses = new ArrayList<>(); 
     }
 
     public ArrayList<Course> getCreatedCourses() {
@@ -16,6 +18,7 @@ public class Instructor extends User {
     }
 
     public void createCourse(String courseId, String title, String description, String instructorId) {
+         Databasef db = new Databasef();
         Course c = new Course(courseId, title, description, instructorId);
 
         // 1) Add to memory
@@ -33,6 +36,7 @@ public class Instructor extends User {
     }
 
     public void editCourse(String courseId, String newTitle, String newDescription, String newInstructorId) {
+        Databasef db = new Databasef();
         Course c = getCourseById(courseId);
         if (c != null) {
             c.editCourse(newTitle, newDescription, newInstructorId);
@@ -41,11 +45,13 @@ public class Instructor extends User {
     }
 
     public void deleteCourse(String courseId) {
+        Databasef db = new Databasef();
         createdCourses.removeIf(c -> c.getCourseId().equals(courseId));
         db.deleteCourse(courseId);
     }
 
     public void addLessonToCourse(String courseId, Lesson lesson) {
+        Databasef db = new Databasef();
         Course c = getCourseById(courseId);
         if (c != null) {
             c.getLessons().add(lesson);
@@ -54,6 +60,7 @@ public class Instructor extends User {
     }
 
     public void editLessonInCourse(String courseId, String lessonId, String newTitle, String newContent) {
+        Databasef db = new Databasef();
         Course c = getCourseById(courseId);
         if (c != null) {
             for (Lesson l : c.getLessons()) {
@@ -67,6 +74,7 @@ public class Instructor extends User {
     }
 
     public void deleteLessonFromCourse(String courseId, String lessonId) {
+        Databasef db = new Databasef();
         Course c = getCourseById(courseId);
         if (c != null) {
             c.getLessons().removeIf(l -> l.getLessonId().equals(lessonId));
