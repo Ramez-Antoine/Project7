@@ -12,13 +12,23 @@ import javax.swing.SwingUtilities;
  * @author cs
  */
 public class ViewCoursesFrame extends javax.swing.JPanel {
+private Student currentStudent;
+private StudentService service;
+private Databasef db;
 
+public ViewCoursesFrame(Student s, StudentService service, Databasef db) {
+    this.currentStudent = s;
+    this.service = service;
+    this.db = db;
+
+    initComponents();
+    loadTablesData();
+}
     /**
      * Creates new form ViewCoursesFrame
      */
     public ViewCoursesFrame() {
         initComponents();
-        loadTablesData();
     }
 
     /**
@@ -128,10 +138,9 @@ public class ViewCoursesFrame extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        StudentDashBoard dashboard = new StudentDashBoard();
-        dashboard.setVisible(true);
-
-        SwingUtilities.getWindowAncestor(this).dispose();
+        StudentDashboardFrame dashboard = new StudentDashboardFrame();
+       dashboard.setVisible(true);
+SwingUtilities.getWindowAncestor(this).dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked

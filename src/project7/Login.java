@@ -67,11 +67,11 @@ public class Login extends javax.swing.JPanel {
         
         if(user.getRole().equalsIgnoreCase("student"))
         {
-            Student s = (Student) user;
-            StudentService service = new StudentService();
-
-            new StudentDashBoard(s, service).setVisible(true);
             
+            StudentService service = new StudentService();
+            StudentDashboardFrame frame = new StudentDashboardFrame((Student) user,service, db);
+           // frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
         }
         else
         {

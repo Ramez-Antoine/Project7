@@ -147,7 +147,7 @@ public LessonViewerFrame(String courseId) {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    StudentDashBoard dashboard = new StudentDashBoard();
+    StudentDashboardFrame dashboard = new StudentDashboardFrame();
     dashboard.setVisible(true);
     SwingUtilities.getWindowAncestor(this).dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
