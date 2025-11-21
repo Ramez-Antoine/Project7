@@ -190,7 +190,7 @@ public class CreateCourseForm extends javax.swing.JPanel {
     }
     
     boolean exists = false;
-    for(Course c : currentInstructor.getCreatedCourses()) {
+    for(Course c : Databasef.readCourses()) {
         if(c.getCourseId().equals(courseId) || c.getTitle().equalsIgnoreCase(title)) {
             exists = true;
             break;
