@@ -188,6 +188,7 @@ public class Databasef {
                 obj.put("lessonId", ls.getLessonId());
                 obj.put("title", ls.getTitle());
                 obj.put("content", ls.getContent());
+                obj.put("resources", ls.getResources());
                 L.put(obj);
             }
             o.put("lessons", L);
@@ -199,6 +200,17 @@ public class Databasef {
         }
 
         writeFile(COURSES_FILE, arr.toString(4));
+    }
+    
+    public ArrayList<Course> readCoursesForInstructor(String instructorId) {
+        ArrayList<Course> allCourses = readCourses();
+        ArrayList<Course> instructorCourses = new ArrayList<>();
+        for (Course c : allCourses) {
+            if (c.getInstructorId().equals(instructorId)) {
+                instructorCourses.add(c);
+            }
+        }
+        return instructorCourses;
     }
 
     public void addCourse(Course newCourse) {
