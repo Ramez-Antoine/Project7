@@ -19,7 +19,7 @@ public class StudentDashboardFrame extends javax.swing.JFrame {
     public StudentDashboardFrame(Student s, StudentService service, Databasef db) {
 
         // حطّينا JPanel الحقيقي
-        setContentPane(new StudentDashboardFrame(s, service, db));
+        initComponents();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
@@ -27,7 +27,7 @@ public class StudentDashboardFrame extends javax.swing.JFrame {
         setVisible(true);
     }
     public StudentDashboardFrame() {
-        setContentPane(new StudentDashboardFrame());
+        initComponents();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
@@ -124,29 +124,38 @@ public class StudentDashboardFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ViewCoursesFrame view = new ViewCoursesFrame();
-        view.setVisible(true);
-        SwingUtilities.getWindowAncestor(this).dispose();
+        JFrame f = new JFrame("View Courses");
+    f.setContentPane(new ViewCoursesFrame());
+    f.pack();
+    f.setLocationRelativeTo(null);
+    f.setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        EnrollCoursesFrame enroll = new EnrollCoursesFrame();
-        enroll.setVisible(true);
-        SwingUtilities.getWindowAncestor(this).dispose();
+        JFrame f = new JFrame("Enroll Courses");
+    f.setContentPane(new EnrollCoursesFrame());
+    f.pack();
+    f.setLocationRelativeTo(null);
+    f.setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        LessonViewerFrame lessons = new LessonViewerFrame();
-        lessons.setVisible(true);
-        SwingUtilities.getWindowAncestor(this).dispose();
+        JFrame f = new JFrame("Lessons Viewer");
+    f.setContentPane(new LessonViewerFrame());
+    f.pack();
+    f.setLocationRelativeTo(null);
+    f.setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        MainMenuFrame menu = new MainMenuFrame();
-        menu.setVisible(true);
+         MainMenuFrame menu = new MainMenuFrame();
+    menu.setVisible(true);
 
-        // close current window
-        SwingUtilities.getWindowAncestor(this).dispose();
+    // close current window
+    this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
