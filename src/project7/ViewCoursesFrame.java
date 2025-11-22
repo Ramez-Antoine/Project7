@@ -27,9 +27,7 @@ public ViewCoursesFrame(Student s, StudentService service, Databasef db) {
     /**
      * Creates new form ViewCoursesFrame
      */
-    public ViewCoursesFrame() {
-        initComponents();
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -138,7 +136,7 @@ public ViewCoursesFrame(Student s, StudentService service, Databasef db) {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        StudentDashboardFrame dashboard = new StudentDashboardFrame();
+        StudentDashboardFrame dashboard = new StudentDashboardFrame(currentStudent, service, db);
        dashboard.setVisible(true);
 SwingUtilities.getWindowAncestor(this).dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -189,16 +187,22 @@ SwingUtilities.getWindowAncestor(this).dispose();
     model2.setRowCount(0);  // Clear table
 
     // TODO: Replace with actual logged in student
-    String loggedStudentId = "S1"; // temporary until login logic is done
+    String loggedStudentId = currentStudent.getId();
+
 
     for (Course c : allCourses) {
-        for (Student s : c.getStudents()) {
-            if (s.getId().equals(loggedStudentId)) {
-                Object[] row = { c.getCourseId(), c.getTitle() };
-                model2.addRow(row);
-            }
+    for (User u : c.getStudents()) {
+        if (u.getId().equals(loggedStudentId)) {
+            model2.addRow(new Object[]{
+                c.getCourseId(),
+                c.getTitle()
+            });
         }
     }
+}
+    
+    
+    
 }
 
     

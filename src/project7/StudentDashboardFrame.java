@@ -13,10 +13,31 @@ import javax.swing.SwingUtilities;
  */
 public class StudentDashboardFrame extends javax.swing.JFrame {
 
+    private Student currentStudent;
+    private StudentService service;
+    private Databasef db;
     /**
      * Creates new form StudentDashboardFrame
      */
+    
+    public StudentDashboardFrame() {
+    this.currentStudent = new Student("S1", "Dummy", "dummy@test.com", "123");
+    this.service = new StudentService();
+    this.db = new Databasef();
+
+    initComponents();
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    pack();
+    setLocationRelativeTo(null);
+    setVisible(true);
+    }
+    
     public StudentDashboardFrame(Student s, StudentService service, Databasef db) {
+
+        
+        this.currentStudent = s;
+        this.service = service;
+        this.db = db;
 
         // حطّينا JPanel الحقيقي
         initComponents();
@@ -26,14 +47,7 @@ public class StudentDashboardFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
-    public StudentDashboardFrame() {
-        initComponents();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pack();
-        setLocationRelativeTo(null);
-        setVisible(true); 
-        initComponents();
-    }
+    
    
 
     /**
@@ -125,7 +139,7 @@ public class StudentDashboardFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         JFrame f = new JFrame("View Courses");
-    f.setContentPane(new ViewCoursesFrame());
+    f.setContentPane(new ViewCoursesFrame(currentStudent, service, db));
     f.pack();
     f.setLocationRelativeTo(null);
     f.setVisible(true);
@@ -134,7 +148,7 @@ public class StudentDashboardFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         JFrame f = new JFrame("Enroll Courses");
-    f.setContentPane(new EnrollCoursesFrame());
+    f.setContentPane(new EnrollCoursesFrame(currentStudent , service , db));
     f.pack();
     f.setLocationRelativeTo(null);
     f.setVisible(true);
@@ -192,7 +206,6 @@ public class StudentDashboardFrame extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

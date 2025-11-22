@@ -15,21 +15,31 @@ import javax.swing.table.DefaultTableModel;
  */
 public class LessonViewerFrame extends javax.swing.JPanel {
 
-    /**
-     * Creates new form LessonViewerFrame
-     */
+    
+    private Student currentStudent;
+    private StudentService service;
+    private Databasef db;
+    private String courseId;
+     
+    
+    
+ 
+    
+    public LessonViewerFrame(String courseId, Student student, StudentService service, Databasef db) {
+        this.courseId = courseId;
+        this.currentStudent = student;
+        this.service = service;
+        this.db = db;
+
+        initComponents();
+        loadLessons();
+    }
+    
+    
+    
     public LessonViewerFrame() {
         initComponents();
     }
-
-    
-    private String courseId;   // نحتفظ بالـ courseId
-
-public LessonViewerFrame(String courseId) {
-    this.courseId = courseId;
-    initComponents();
-    loadLessons();   // نادينا الفانكشن اللي هتملأ الجدول
-}
 
     
     private void loadLessons() {
@@ -147,7 +157,7 @@ public LessonViewerFrame(String courseId) {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    StudentDashboardFrame dashboard = new StudentDashboardFrame();
+    StudentDashboardFrame dashboard = new StudentDashboardFrame(currentStudent, service , db);
     dashboard.setVisible(true);
     SwingUtilities.getWindowAncestor(this).dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

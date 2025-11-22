@@ -14,10 +14,16 @@ import javax.swing.SwingUtilities;
  */
 public class EnrollCoursesFrame extends javax.swing.JPanel {
 
+    private Student currentStudent ;
+    private StudentService service ;
+    private Databasef db ;
     /**
      * Creates new form EnrollCoursesFrame
      */
-    public EnrollCoursesFrame() {
+    public EnrollCoursesFrame(Student student , StudentService service ,Databasef db ) {
+        this.currentStudent = student ;
+        this.service = service ;
+        this.db = db ;
         initComponents();
         loadAvailableCourses() ;
     }
@@ -151,7 +157,8 @@ if (selectedRow == -1) {
 String courseId = jTable1.getValueAt(selectedRow, 0).toString();
 
 // TEMP: replace when login is connected
-String loggedStudentId = "S1";
+String loggedStudentId = currentStudent.getId();
+
 
 // Load database
 ArrayList<User> allUsers = Databasef.readUsers();
@@ -205,17 +212,17 @@ JOptionPane.showMessageDialog(this, "Enrolled Successfully!");
     }
 
     String courseId = jTable1.getValueAt(selectedRow, 0).toString();
-
-    // Open lessons screen (we will create it if it doesn't exist)
-    LessonViewerFrame lv = new LessonViewerFrame(courseId);
+    LessonViewerFrame lv = new LessonViewerFrame(courseId, currentStudent, service, db);
+    
     lv.setVisible(true);
 
     SwingUtilities.getWindowAncestor(this).dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-         StudentDashboardFrame dashboard = new StudentDashboardFrame();
+         StudentDashboardFrame dashboard = new StudentDashboardFrame(currentStudent , service , db);
         dashboard.setVisible(true);
+        SwingUtilities.getWindowAncestor(this).dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
 
