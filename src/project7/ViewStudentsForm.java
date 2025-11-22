@@ -21,7 +21,7 @@ public class ViewStudentsForm extends javax.swing.JPanel {
         initComponents();
         jComboBox1.removeAllItems();
         for (Course c : currentInstructor.getCreatedCourses()) {
-        jComboBox1.addItem(c.toString()); 
+        jComboBox1.addItem(c.getTitle()); 
     }
     }
     private void loadStudents() {

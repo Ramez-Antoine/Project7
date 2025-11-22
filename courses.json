@@ -1,0 +1,23 @@
+[
+    {
+        "description": "whsh",
+        "students": [],
+        "title": "linear",
+        "courseId": "123",
+        "instructorId": "9375",
+        "lessons": []
+    },
+    {
+        "description": "9375aaaa",
+        "students": [],
+        "title": "aab",
+        "courseId": "456",
+        "instructorId": "9375",
+        "lessons": [{
+            "lessonId": "12345",
+            "resources": [],
+            "title": "lesson1",
+            "content": "1=1"
+        }]
+    }
+]
